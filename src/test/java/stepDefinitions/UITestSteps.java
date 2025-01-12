@@ -4,8 +4,11 @@ import io.cucumber.java.en.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 import java.util.Set;
@@ -14,12 +17,22 @@ public class UITestSteps {
     WebDriver driver;
     WebDriverWait wait;
 
-    @Given("I open the eBay homepage")
-    public void openHomePage() {
-        ChromeOptions options = new ChromeOptions();
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        driver = new ChromeDriver(options);
-        driver.get("https://www.ebay.com");
+    @Given("I navigate to {string}")
+    public void navigateTo(String url) {
+
+        String browser = System.getProperty("browser", "chrome");
+        if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+            driver = new ChromeDriver(options);
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            driver = new FirefoxDriver(options);
+        } else {
+            throw new IllegalArgumentException("Unsupported browser: " + browser);
+        }
+
+        driver.get(url);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
