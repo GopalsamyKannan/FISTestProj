@@ -1,5 +1,5 @@
 Feature: eBay UI Test
-  @smoke
+  @UISmoke
   Scenario: Add item to cart
     Given I open the eBay homepage
     When I search for "book"
