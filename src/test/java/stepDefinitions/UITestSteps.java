@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
+import utils.ConfigReader;
 
 import java.time.Duration;
 import java.util.Set;
@@ -17,10 +18,15 @@ public class UITestSteps {
     WebDriver driver;
     WebDriverWait wait;
 
-    @Given("I navigate to {string}")
-    public void navigateTo(String url) {
+    //@Given("I navigate to {string}")
+    @Given("I navigate to the URL")
+    public void navigateTo() {
 
-        String browser = System.getProperty("browser", "chrome");
+        //String browser = System.getProperty("browser", "chrome");
+
+        String url = ConfigReader.getProperty("url"); // Fetch URL from config.properties
+        String browser = ConfigReader.getProperty("browserName");
+
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
