@@ -14,14 +14,21 @@ src
 └── test
     ├── java
     │   ├── stepDefinitions
-    │   │   ├── UITestSteps.java
-    │   │   └── APITestSteps.java
+    │   │   ├── UITestSteps.java        
+    │   │   └── APITestSteps.java        
+    │   ├── pages                        
+    │   │   ├── HomePage.java
+    │   │   ├── ProductPage.java
+    │   │   └── SearchResultsPage.java
+    │   ├── utils                        
+    │   │   └── ConfigReader.java
     │   └── runner
-    │       └── TestRunner.java
+    │       └── TestNGRunner.java          
     └── resources
-        └── features
-            ├── UITest.feature
-            └── APITest.feature
+        ├── features                     
+        │   ├── UITest.feature            
+        │   └── APITest.feature           
+        └── config.properties             
 ```
 
 - **Feature Files**: Located in `src/test/resources/features/`
@@ -32,7 +39,7 @@ src
   - `UITestSteps.java`: Implements the steps for UI testing.
   - `APITestSteps.java`: Implements the steps for API testing.
 
-- **Test Runner**: `src/test/java/runner/TestRunner.java`  
+- **Test Runner**: `src/test/java/runner/TestNGRunner.java`  
   Configures and runs the Cucumber tests.
 
 ---
